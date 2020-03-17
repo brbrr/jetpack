@@ -31,6 +31,7 @@ import {
 } from '@wordpress/block-editor';
 import ServerSideRender from '@wordpress/server-side-render';
 import { isURL } from '@wordpress/url';
+import { getBlockDefaultClassName } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -42,6 +43,7 @@ import { edit, queueMusic } from './icons/';
 import { isAtomicSite, isSimpleSite } from '../../shared/site-type-utils';
 import attributesValidation from './attributes';
 import { applyFallbackStyles } from '../../shared/apply-fallback-styles';
+import classnames from 'classnames';
 
 // Check if useColors is available.
 const isUseColorsAvailable = !! useColors;
@@ -62,6 +64,7 @@ const supportUrl =
 const PodcastPlayerEdit = ( {
 	attributes,
 	setAttributes,
+	name,
 
 	noticeOperations: { createErrorNotice, removeAllNotices },
 	noticeUI,
@@ -73,6 +76,8 @@ const PodcastPlayerEdit = ( {
 	setBackgroundColor,
 	fallbackBackgroundColor,
 } ) => {
+	const defaultClassName = getBlockDefaultClassName( name );
+
 	// Validated attributes.
 	const { url, itemsToShow, showCoverArt, showEpisodeDescription } = getValidatedAttributes(
 		attributesValidation,
@@ -150,6 +155,19 @@ const PodcastPlayerEdit = ( {
 		},
 	];
 
+	// Colors: CSS classes and inline styles.
+	const cssClasses = classnames( defaultClassName, {
+		'has-text-color': textColor.class || textColor.color,
+		[ textColor.class ? textColor.class : null ]: !! textColor.class,
+		'has-background': backgroundColor.class || backgroundColor.color,
+		[ backgroundColor.class ? backgroundColor.class : null ]: !! backgroundColor.class,
+	} );
+
+	const inlineStyles = {
+		backgroundColor: backgroundColor.color ? backgroundColor.color : undefined,
+		color: textColor.color ? textColor.color : undefined,
+	};
+
 	return (
 		<>
 			<BlockControls>
@@ -209,14 +227,16 @@ const PodcastPlayerEdit = ( {
 					</PanelColorSettings>
 				) }
 			</InspectorControls>
-			<Disabled>
-				<ServerSideRender
-					block={ namespaceName }
-					attributes={ { url, itemsToShow } }
-					EmptyResponsePlaceholder={ handleSSRError }
-					ErrorResponsePlaceholder={ handleSSRError }
-				/>
-			</Disabled>
+			<div style={ inlineStyles } className={ cssClasses }>
+				<Disabled>
+					<ServerSideRender
+						block={ namespaceName }
+						attributes={ { url, itemsToShow } }
+						EmptyResponsePlaceholder={ handleSSRError }
+						ErrorResponsePlaceholder={ handleSSRError }
+					/>
+				</Disabled>
+			</div>
 		</>
 	);
 };
