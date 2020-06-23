@@ -1,5 +1,6 @@
 {
 	"tests_dir": "docs/regression-checklist/test-suites/",
 	"mapping_file": "docs/regression-checklist/mapping.json",
-	"tests_repo": "brbrr/jetpack"
+	"tests_repo": "brbrr/jetpack",
+	"comment_footer": "\n\nIf you think that suggestions should be improved please edit the configuration file [here](docs/regression-checklist/mapping.json). You can also modify/add [test-suites](docs/regression-checklist/test-suites to be used in the configuration file."
 }
