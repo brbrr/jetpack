@@ -11,6 +11,7 @@ use Automattic\Jetpack\Constants;
 
 /**
  * Provides utility methods for the Connection package.
+ * blah blah blah
  */
 class Utils {
 
