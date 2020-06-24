@@ -10,7 +10,7 @@
 
 	{
 		"regex":"class.jetpack-gutenberg.php",
-		"testFile": ["extensions/all.md"]
+		"testFile": ["extenstions/all.md"]
 	},
 	{
 		"regex":"extensions/blocks/contact-form*",
