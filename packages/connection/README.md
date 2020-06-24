@@ -19,3 +19,5 @@ Package is published in [Packagist](https://packagist.org/packages/automattic/je
 2. [Authorize the user](docs/authorize-user.md)
 3. In-place user auth @todo
 4. Disconnecting @todo
+
+hey ho!
